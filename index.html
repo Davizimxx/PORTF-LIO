@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santos | Portfólio</title>
+
+<style>
+:root{
+  --roxo:#7a1cff;
+  --preto:#000;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+  background:var(--preto);
+  color:#fff;
+}
+
+/* HEADER */
+header{
+  text-align:center;
+  padding:30px;
+  font-size:42px;
+  font-weight:800;
+}
+
+/* MAIN */
+main{
+  max-width:1100px;
+  margin:auto;
+  padding:40px 15px;
+}
+
+h2{
+  text-align:center;
+  color:var(--roxo);
+  font-size:34px;
+}
+
+.desc{
+  text-align:center;
+  color:#ccc;
+  margin:20px auto 40px;
+  max-width:700px;
+}
+
+/* BOTÕES */
+.buttons{
+  display:flex;
+  gap:20px;
+  justify-content:center;
+  margin-bottom:60px;
+}
+
+.btn{
+  padding:16px 40px;
+  border-radius:30px;
+  border:none;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.btn.projetos{
+  background:var(--roxo);
+  color:#fff;
+}
+
+.btn.contato{
+  background:#fff;
+  color:#000;
+}
+
+/* TÍTULO SEÇÃO */
+.section-title{
+  text-align:center;
+  color:var(--roxo);
+  font-size:26px;
+  margin-bottom:20px;
+}
+
+/* CARROSSEL */
+.carousel{
+  width:100%;
+  height:420px;
+  overflow:hidden;
+  border-radius:25px;
+}
+
+.carousel-track{
+  display:flex;
+  height:100%;
+  transition:transform 0.6s ease;
+}
+
+/* SLIDE */
+.carousel-track img{
+  min-width:100%;
+  height:100%;
+  object-fit:contain;        /* NÃO CORTA */
+  object-position:center;   /* CENTRALIZA */
+  background:#000;
+}
+
+/* DOTS */
+.dots{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:15px;
+}
+
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#555;
+  cursor:pointer;
+}
+
+.dot.active{
+  background:var(--roxo);
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:30px;
+  font-size:14px;
+  color:#888;
+}
+
+@media(max-width:600px){
+  .carousel{height:260px;}
+  header{font-size:32px;}
+}
+</style>
+</head>
+
+<body>
+
+<header>SANTOS</header>
+
+<main>
+  <h2>PORTFÓLIO</h2>
+  <p class="desc">
+    Seu projeto criado do zero com excelência — design moderno, edição de vídeo e criação de sites.
+  </p>
+
+  <div class="buttons">
+    <button class="btn projetos" onclick="document.getElementById('artes').scrollIntoView()">PROJETOS</button>
+    <button class="btn contato" onclick="window.open('https://discord.gg/ZZWmm5yJtZ')">CONTATOS</button>
+  </div>
+
+  <section id="artes">
+    <div class="section-title">ARTES</div>
+
+    <div class="carousel">
+      <div class="carousel-track" id="track">
+        <!-- ADICIONE QUANTAS IMAGENS QUISER -->
+        <img src="https://i.postimg.cc/ZnWv3nTz/FENDA-DOS-20251214-194048-0000.png">
+        <img src="https://i.postimg.cc/wxnQ28n2/FENDA-DOS-20251214-193922-0000.png">
+        <img src="https://i.postimg.cc/7hXCpzmd/file-00000000e5f0720e88141091f5f43985.png">
+      <img src="https://i.postimg.cc/zXXHTdG9/2-20251214-040335-0001.png">  
+      </div>
+    </div>
+
+    <div class="dots" id="dots"></div>
+  </section>
+</main>
+
+<footer>© 2025 Santos. Todos os direitos reservados.</footer>
+
+<script>
+const track = document.getElementById('track');
+const images = track.children;
+const dots = document.getElementById('dots');
+let index = 0;
+
+// cria dots
+for(let i=0;i<images.length;i++){
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.onclick = () => moveTo(i);
+  dots.appendChild(d);
+}
+
+function moveTo(i){
+  index = i;
+  track.style.transform = `translateX(-${i * 100}%)`;
+  document.querySelectorAll('.dot').forEach((dot,idx)=>{
+    dot.classList.toggle('active', idx === i);
+  });
+}
+
+// autoplay
+setInterval(()=>{
+  index = (index + 1) % images.length;
+  moveTo(index);
+}, 4000);
+</script>
+
+</body>
+</html>
